@@ -8,6 +8,24 @@ def populateSolutions(inputArray, solutions):
         if (letter != ' '):
             solutions[letter] = 'null'
 
+def populateTestCases(letter1, letter2, letter3, solutions):
+    unsolvedNumbers = []
+    result = [[]]
+    letters = [letter1, letter2, letter3]
+
+    for letter in list(solutions.keys()):
+        if (solutions[letter] == 'null'):
+            unsolvedNumbers.append([letter])
+
+    for index in len(letters):
+        # Set test case to solved number if it's solved in solutions.  Otherwise set to entire set of possibilities from unsolvedNumbers
+        if (solutions[letters[index]] != 'null'):
+            result[index] = [solutions[letters[index]]]
+        else:
+            result[index] = unsolvedNumbers
+
+    return result
+
 def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carry, changing carryForward to if it pushes forward a 1 or not, and then have carry, whether or not it takes a carry?
     # Create branch solutions to carry forward
     branchSolutions = solutions.copy()
