@@ -27,7 +27,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
         if (result != 'unsolvable'):
             return result
         else:
-            return (solveNode(index+1, input, sum, branchSolutions, 1, 1))
+            return (solveNode(index+1, input, sum, branchSolutionsCarry, 1, 1))
     else:
         # Make set to iterate through
         # digit # = unsolve input1, input2, sum1
