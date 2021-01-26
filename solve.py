@@ -8,7 +8,7 @@ def populateSolutions(inputArray, solutions):
         solutions[letter] = 'null'
 
 def solveNode(index, solutions, carryForward):
-    print("todo")
+    return 'unsolvable'
 
 def solveProblem(input, sum):
     solutions = dict()
@@ -17,6 +17,16 @@ def solveProblem(input, sum):
     populateSolutions(input[1], solutions)
     populateSolutions(sum, solutions)
 
-    print(solutions)
+    noCarry = solveNode(0, solutions, 0)
+    withCarry = solveNode(0, solutions, 1)
+    if (noCarry != 'unsolvable'):
+        print ("Solution Found!")
+        print (noCarry)
+    elif (withCarry != 'unsolvable'):
+        print ("Solution Found!")
+        print(withCarry)
+    else:
+        print ("ERROR:  No solution found...")
+        exit(1)
 
 solveProblem(input, sum)
