@@ -7,10 +7,13 @@ def populateSolutions(inputArray, solutions):
     for letter in inputArray:
         solutions[letter] = 'null'
 
-def solveNode(index, solutions, carryForward):
+def solveNode(index, input, sum, solutions, carryForward):
+    # Check base case - TODO Check for solution before we hit this point?
+    if (index == input[0].length()):
+        return solutions
+    else:
+        return "solutions" # Solve problem for each carry possibility
     return 'unsolvable'
-    #return {'S': 'null', 'E': 'null', 'N': 'null', 'D': 'null', 'M': 'null', 'O': 'null', 'R': 'null', 'Y': 'null'}
-    #return solutions
 
 def solveProblem(input, sum):
     solutions = dict()
@@ -20,13 +23,13 @@ def solveProblem(input, sum):
     populateSolutions(sum, solutions)
 
     noCarrySolutions = solutions.copy()
-    noCarry = solveNode(0, noCarrySolutions, 0)
+    noCarry = solveNode(0, input, sum, noCarrySolutions, 0)
     if (noCarry != 'unsolvable'):
         print ("Solution Found!")
         print (noCarry)
     
     withCarrySolutions = solutions.copy()
-    withCarry = solveNode(0, withCarrySolutions, 1)
+    withCarry = solveNode(0, input, sum, withCarrySolutions, 1)
     if (withCarry != 'unsolvable'):
         print ("Solution Found!")
         print(withCarry)
