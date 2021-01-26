@@ -1,16 +1,20 @@
 #!/usr/bin/python
 
-input = [["S", "E", "N", "D"], ["M", "O", "R", "E"]]
+input = [[" ", "S", "E", "N", "D"], [" ", "M", "O", "R", "E"]]
 sum = ["M", "O", "N", "E", "Y"]
 
 def populateSolutions(inputArray, solutions):
     for letter in inputArray:
-        solutions[letter] = 'null'
+        if (letter != ' '):
+            solutions[letter] = 'null'
 
 def solveNode(index, input, sum, solutions, carryForward):
     # Check base case - TODO Check for solution before we hit this point?
     if (index == input[0].length()):
-        return solutions
+        return solutions # Check if all letters != null, otherwise return unsolvable?
+    # If solution at index of sum is null, and space is in input, letter must be 1.  Since carry forward at front can't be zero, and addition can only carry forward one
+    elif ( (solutions[sum[index]] == 'null') and (input[0] == ' ') ):
+        solutions[sum[index]] = 1
     else:
         return "solutions" # Solve problem for each carry possibility
     return 'unsolvable'
