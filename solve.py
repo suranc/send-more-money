@@ -8,7 +8,7 @@ def populateSolutions(inputArray, solutions):
         if (letter != ' '):
             solutions[letter] = 'null'
 
-def solveNode(index, input, sum, solutions, carryForward):
+def solveNode(index, input, sum, solutions, carryForward):  #### Add carry, changing carryForward to if it pushes forward a 1 or not, and then have carry, whether or not it takes a carry?
     # Check base case - TODO Check for solution before we hit this point?
     if (index == input[0].length()):
         return solutions # Check if all letters != null, otherwise return unsolvable?
@@ -16,6 +16,9 @@ def solveNode(index, input, sum, solutions, carryForward):
     elif ( (solutions[sum[index]] == 'null') and (input[0] == ' ') ):
         solutions[sum[index]] = 1
     else:
+        # Make set to iterate through
+        # digit # = unsolve input1, input2, sum1
+        # possibilities = numbers not found in solutions
         return "solutions" # Solve problem for each carry possibility
     return 'unsolvable'
 
