@@ -9,20 +9,26 @@ def populateSolutions(inputArray, solutions):
             solutions[letter] = 'null'
 
 def populateTestCases(letter1, letter2, letter3, solutions):
-    unsolvedNumbers = []
-    result = [[]]
+    unsolvedNumbers = {'0': '0', '1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0', '7': '0', '8': '0', '9': '0'}
+    result = []
     letters = [letter1, letter2, letter3]
 
     for letter in list(solutions.keys()):
-        if (solutions[letter] == 'null'):
-            unsolvedNumbers.append([letter])
+        if (solutions[letter] != 'null'):
+            unsolvedNumbers[solutions[letter]] = 1
 
-    for index in len(letters):
+    unsolvedNumbersArray = []
+    for number in list(unsolvedNumbers.keys()):
+        if (unsolvedNumbers[number] == '0'):
+            unsolvedNumbersArray.append(number)
+    
+    for index in range(0,len(letters)):
+        print (index)
         # Set test case to solved number if it's solved in solutions.  Otherwise set to entire set of possibilities from unsolvedNumbers
         if (solutions[letters[index]] != 'null'):
-            result[index] = [solutions[letters[index]]]
+            result.append([solutions[letters[index]]])
         else:
-            result[index] = unsolvedNumbers
+            result.append(unsolvedNumbersArray)
 
     return result
 
