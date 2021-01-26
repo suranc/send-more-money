@@ -3,4 +3,13 @@
 input = [["S", "E", "N", "D"], ["M", "O", "R", "E"]]
 sum = ["M", "O", "N", "E", "Y"]
 
-print(input[0][1])
+solutions = dict()
+
+def populateSolutions(inputArray, solutions):
+    for letter in inputArray:
+        solutions[letter] = 'null'
+
+populateSolutions(input[0], solutions)
+populateSolutions(input[1], solutions)
+populateSolutions(sum, solutions)
+
