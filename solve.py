@@ -44,7 +44,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
     # Check base case, see if final solution is valid and return solution or unsolvable
     if (index == len(input[0])):
         if (lookupNumbers(input[0],solutions) + lookupNumbers(input[1],solutions) == lookupNumbers(sum,solutions)):
-            return solutions # Check if all letters != null, otherwise return unsolvable?
+            return solutions
         else:
             return "unsolvable"
 
@@ -59,6 +59,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
         if (result != 'unsolvable'):
             return result
 
+        # No match without carry, try to solve with carry
         branchSolutionsCarry = solutions.copy()
         branchSolutionsCarry[sum[index]] = '1'
         carryResult = solveNode(index+1, input, sum, branchSolutionsCarry, 1, 1)
@@ -92,6 +93,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
                         if (result != 'unsolvable'):
                             return result
 
+                        # No match without carry, try to solve with carry
                         branchSolutionsCarry = solutions.copy()
                         branchSolutionsCarry[input[0][index]] = input1
                         branchSolutionsCarry[input[1][index]] = input2
