@@ -31,10 +31,22 @@ def populateTestCases(letter1, letter2, letter3, solutions):
 
     return result
 
+# Change array of letters into numbers by using solutions dictionary
+# TODO make generic, not fixed to 4 digits
+def lookupNumbers(letters, solutions):
+    if (letters[0] == ' '):
+        letters = letters[1:]
+        return (int(solutions[letters[0]])*1000 + int(solutions[letters[1]])*100 + int(solutions[letters[2]])*10 + int(solutions[letters[3]]))
+    else:
+        return (int(solutions[letters[0]])*10000 + int(solutions[letters[1]])*1000 + int(solutions[letters[2]])*100 + int(solutions[letters[3]])*10 + int(solutions[letters[4]]))
+
 def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carry, changing carryForward to if it pushes forward a 1 or not, and then have carry, whether or not it takes a carry?
-    # Check base case - TODO Check for solution before we hit this point?
+    # Check base case, see if final solution is valid and return solution or unsolvable
     if (index == len(input[0])):
-        return solutions # Check if all letters != null, otherwise return unsolvable?
+        if (lookupNumbers(input[0],solutions) + lookupNumbers(input[1],solutions) == lookupNumbers(sum,solutions)):
+            return solutions # Check if all letters != null, otherwise return unsolvable?
+        else:
+            return "unsolvable"
 
     # If solution at index of sum is null, and space is in input, letter must be 1.  Since carry forward at front can't be zero, and addition can only carry forward one
     elif ( (solutions[sum[index]] == 'null') and (input[0][index] == ' ') ):
