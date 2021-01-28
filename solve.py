@@ -3,27 +3,31 @@
 input = [[" ", "S", "E", "N", "D"], [" ", "M", "O", "R", "E"]]
 sum = ["M", "O", "N", "E", "Y"]
 
+# Adds an entry to the solutions dictionary for each unique letter
 def populateSolutions(inputArray, solutions):
     for letter in inputArray:
         if (letter != ' '):
             solutions[letter] = 'null'
 
+# Populate test cases for each digit.
+# Returns a 2d array with each element being an array of possibilities for that digit. 
 def populateTestCases(letter1, letter2, letter3, solutions):
     unsolvedNumbers = {'0': '0', '1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0', '7': '0', '8': '0', '9': '0'}
     result = []
     letters = [letter1, letter2, letter3]
 
+    # Create a list of numbers that aren't solved, by reversing the solutions dictionary and ignoring null values
     for letter in list(solutions.keys()):
         if (solutions[letter] != 'null'):
             unsolvedNumbers[solutions[letter]] = 1
-
     unsolvedNumbersArray = []
     for number in list(unsolvedNumbers.keys()):
         if (unsolvedNumbers[number] == '0'):
             unsolvedNumbersArray.append(number)
     
+    # For each letter in test cases, set test case list to just the solved number if it's solved in solutions.
+    # Otherwise, set letter test cases to entire entire set of possibilities from unsolvedNumbersArray list
     for index in range(0,len(letters)):
-        # Set test case to solved number if it's solved in solutions.  Otherwise set to entire set of possibilities from unsolvedNumbers
         if (solutions[letters[index]] != 'null'):
             result.append([solutions[letters[index]]])
         else:
@@ -40,13 +44,12 @@ def lookupNumbers(letters, solutions):
     else:
         return (int(solutions[letters[0]])*10000 + int(solutions[letters[1]])*1000 + int(solutions[letters[2]])*100 + int(solutions[letters[3]])*10 + int(solutions[letters[4]]))
 
-def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carry, changing carryForward to if it pushes forward a 1 or not, and then have carry, whether or not it takes a carry?
-    # Check base case, see if final solution is valid and return solution or unsolvable
+# Solve each "node" with a node being a column of digits in the equation
+def solveNode(index, input, sum, solutions, carry, carryForward):
+    # Check base case, see if final solution is valid and return solution if it is
     if (index == len(input[0])):
         if (lookupNumbers(input[0],solutions) + lookupNumbers(input[1],solutions) == lookupNumbers(sum,solutions)):
             return solutions
-        else:
-            return "unsolvable"
 
     # If solution at index of sum is null, and space is in input, letter must be 1.  Since carry forward at front can't be zero, and addition can only carry forward one
     elif ( (solutions[sum[index]] == 'null') and (input[0][index] == ' ') ):
@@ -65,9 +68,8 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
         carryResult = solveNode(index+1, input, sum, branchSolutionsCarry, 1, 1)
         if (carryResult != 'unsolvable'):
             return (carryResult)
-        return "unsolvable"
     else:
-        # Get test cases from three digits, no carry first
+        # Get test cases from three digits to solve
         testCases = populateTestCases(input[0][index], input[1][index], sum[index], solutions)
 
         # Loop through each layer of the test cases, testing each permutation
@@ -102,6 +104,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):  #### Add carr
                         if (carryResult != 'unsolvable'):
                             return (carryResult)
 
+    # If nothing matches, current solution path is bust.  Return unsolvable
     return "unsolvable"
 
 def solveProblem(input, sum):
@@ -111,6 +114,7 @@ def solveProblem(input, sum):
     populateSolutions(input[1], solutions)
     populateSolutions(sum, solutions)
 
+    # Solve for first digit.  Hard code carries since the leading solution digit means there's a carry and no carry forward.
     solution = solveNode(0, input, sum, solutions, 1, 0)
     if (solution != 'unsolvable'):
         print ("Solution Found!")
