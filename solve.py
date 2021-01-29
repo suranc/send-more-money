@@ -1,5 +1,7 @@
 #!/usr/bin/python
 import math
+import time
+start= time.time()
 
 input = [[" ", "S", "E", "N", "D"], [" ", "M", "O", "R", "E"]]
 sum = ["M", "O", "N", "E", "Y"]
@@ -125,16 +127,18 @@ def solveProblem(input, sum):
     if (solution != 'unsolvable'):
         print ("Solution Found!")
         print (solution)
-        exit(0)
+        return (0)
 
     # No match without carry, try to with carry
     solution = solveNode(0, input, sum, solutionsCarry, 1, 0)
     if (solution != 'unsolvable'):
         print ("Solution Found!")
         print (solution)
-        exit(0)
+        return (0)
 
     print ("ERROR:  No solution found...")
-    exit (1)
+    return (1)
 
 solveProblem(input, sum)
+print(time.time() - start)
+exit(0)
