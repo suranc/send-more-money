@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import math
 
-input = [[" ", "S", "E", "N", "D"], [" ", "M", "O", "R", "E"]]
-sum = ["M", "O", "N", "E", "Y"]
+input = [[" ", "A", "A", "B", "C", "D", "E", "F", "A", "B"], [" ", "G", "H", "H", "I", "B", "D", "D", "F", "D"]]
+sum = ["C", "F", "D", "D", "D", "C", "C", "J", "C", "I"]
 
 # Adds an entry to the solutions dictionary for each unique letter
 def populateSolutions(inputArray, solutions):
