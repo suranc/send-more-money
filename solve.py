@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import math
 
 input = [[" ", "S", "E", "N", "D"], [" ", "M", "O", "R", "E"]]
 sum = ["M", "O", "N", "E", "Y"]
@@ -36,13 +37,17 @@ def populateTestCases(letter1, letter2, letter3, solutions):
     return result
 
 # Change array of letters into numbers by using solutions dictionary
-# TODO make generic, not fixed to 4 digits
 def lookupNumbers(letters, solutions):
+    # Strip off any leading spaces from input letters array
     if (letters[0] == ' '):
         letters = letters[1:]
-        return (solutions[letters[0]]*1000 + solutions[letters[1]]*100 + solutions[letters[2]]*10 + solutions[letters[3]])
-    else:
-        return (solutions[letters[0]]*10000 + solutions[letters[1]]*1000 + solutions[letters[2]]*100 + solutions[letters[3]]*10 + solutions[letters[4]])
+
+    # Fill out result by looping through input array left to right, and adding together each value*place (6*1000 + 5*100, etc)
+    result = 0
+    for place in range(1, len(letters)):
+        result = result + solutions[letters[place]]*math.pow(10,len(letters) - place)
+
+    return result
 
 # Solve each "node" with a node being a column of digits in the equation
 def solveNode(index, input, sum, solutions, carry, carryForward):
