@@ -7,7 +7,7 @@ sum = ["M", "O", "N", "E", "Y"]
 def populateSolutions(inputArray, solutions):
     for letter in inputArray:
         if (letter != ' '):
-            solutions[letter] = 'null'
+            solutions[letter] = None
 
 # Populate test cases for each digit.
 # Returns a 2d array with each element being an array of possibilities for that digit. 
@@ -18,7 +18,7 @@ def populateTestCases(letter1, letter2, letter3, solutions):
 
     # Create a list of numbers that aren't solved, by reversing the solutions dictionary and ignoring null values
     for letter in list(solutions.keys()):
-        if (solutions[letter] != 'null'):
+        if (solutions[letter] != None):
             unsolvedNumbers[solutions[letter]] = 1
     unsolvedNumbersArray = []
     for number in list(unsolvedNumbers.keys()):
@@ -28,7 +28,7 @@ def populateTestCases(letter1, letter2, letter3, solutions):
     # For each letter in test cases, set test case list to just the solved number if it's solved in solutions.
     # Otherwise, set letter test cases to entire entire set of possibilities from unsolvedNumbersArray list
     for index in range(0,len(letters)):
-        if (solutions[letters[index]] != 'null'):
+        if (solutions[letters[index]] != None):
             result.append([solutions[letters[index]]])
         else:
             result.append(unsolvedNumbersArray)
@@ -52,7 +52,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):
             return solutions
 
     # If solution at index of sum is null, and space is in input, letter must be 1.  Since carry forward at front can't be zero, and addition can only carry forward one
-    elif ( (solutions[sum[index]] == 'null') and (input[0][index] == ' ') ):
+    elif ( (solutions[sum[index]] == None) and (input[0][index] == ' ') ):
         # Create branch solutions to carry forward
         branchSolutions = solutions.copy()
         branchSolutions[sum[index]] = '1'
