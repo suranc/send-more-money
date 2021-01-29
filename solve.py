@@ -44,7 +44,7 @@ def lookupNumbers(letters, solutions):
 
     # Fill out result by looping through input array left to right, and adding together each value*place (6*1000 + 5*100, etc)
     result = 0
-    for place in range(1, len(letters)):
+    for place in range(0, len(letters)):
         result = result + solutions[letters[place]]*math.pow(10,len(letters) - place)
 
     return result
