@@ -12,7 +12,7 @@ def populateSolutions(inputArray, solutions):
 # Populate test cases for each digit.
 # Returns a 2d array with each element being an array of possibilities for that digit. 
 def populateTestCases(letter1, letter2, letter3, solutions):
-    unsolvedNumbers = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
+    unsolvedNumbers = {0: None, 1: None, 2: None, 3: None, 4: None, 5: None, 6: None, 7: None, 8: None, 9: None}
     result = []
     letters = [letter1, letter2, letter3]
 
@@ -22,7 +22,7 @@ def populateTestCases(letter1, letter2, letter3, solutions):
             unsolvedNumbers[solutions[letter]] = 1
     unsolvedNumbersArray = []
     for number in list(unsolvedNumbers.keys()):
-        if (unsolvedNumbers[number] == 0):
+        if (unsolvedNumbers[number] == None):
             unsolvedNumbersArray.append(number)
     
     # For each letter in test cases, set test case list to just the solved number if it's solved in solutions.
