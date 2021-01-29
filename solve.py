@@ -12,7 +12,7 @@ def populateSolutions(inputArray, solutions):
 # Populate test cases for each digit.
 # Returns a 2d array with each element being an array of possibilities for that digit. 
 def populateTestCases(letter1, letter2, letter3, solutions):
-    unsolvedNumbers = {'0': '0', '1': '0', '2': '0', '3': '0', '4': '0', '5': '0', '6': '0', '7': '0', '8': '0', '9': '0'}
+    unsolvedNumbers = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
     result = []
     letters = [letter1, letter2, letter3]
 
@@ -22,7 +22,7 @@ def populateTestCases(letter1, letter2, letter3, solutions):
             unsolvedNumbers[solutions[letter]] = 1
     unsolvedNumbersArray = []
     for number in list(unsolvedNumbers.keys()):
-        if (unsolvedNumbers[number] == '0'):
+        if (unsolvedNumbers[number] == 0):
             unsolvedNumbersArray.append(number)
     
     # For each letter in test cases, set test case list to just the solved number if it's solved in solutions.
@@ -40,9 +40,9 @@ def populateTestCases(letter1, letter2, letter3, solutions):
 def lookupNumbers(letters, solutions):
     if (letters[0] == ' '):
         letters = letters[1:]
-        return (int(solutions[letters[0]])*1000 + int(solutions[letters[1]])*100 + int(solutions[letters[2]])*10 + int(solutions[letters[3]]))
+        return (solutions[letters[0]]*1000 + solutions[letters[1]]*100 + solutions[letters[2]]*10 + solutions[letters[3]])
     else:
-        return (int(solutions[letters[0]])*10000 + int(solutions[letters[1]])*1000 + int(solutions[letters[2]])*100 + int(solutions[letters[3]])*10 + int(solutions[letters[4]]))
+        return (solutions[letters[0]]*10000 + solutions[letters[1]]*1000 + solutions[letters[2]]*100 + solutions[letters[3]]*10 + solutions[letters[4]])
 
 # Solve each "node" with a node being a column of digits in the equation
 def solveNode(index, input, sum, solutions, carry, carryForward):
@@ -55,7 +55,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):
     elif ( (solutions[sum[index]] == None) and (input[0][index] == ' ') ):
         # Create branch solutions to carry forward
         branchSolutions = solutions.copy()
-        branchSolutions[sum[index]] = '1'
+        branchSolutions[sum[index]] = 1
 
         # Solve with and without carry, return first result if solvable, and if not, whatever second result is (unsolvable still, or a valid solution)
         result = solveNode(index+1, input, sum, branchSolutions, 0, 1)
@@ -64,7 +64,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):
 
         # No match without carry, try to solve with carry
         branchSolutionsCarry = solutions.copy()
-        branchSolutionsCarry[sum[index]] = '1'
+        branchSolutionsCarry[sum[index]] = 1
         carryResult = solveNode(index+1, input, sum, branchSolutionsCarry, 1, 1)
         if (carryResult != 'unsolvable'):
             return (carryResult)
@@ -84,7 +84,7 @@ def solveNode(index, input, sum, solutions, carry, carryForward):
                         next
 
                     # If carryFoward = 1, sum must be >= 10, if 0, must be < 10
-                    if (int(input1) + int(input2) + int(carry) == (int(sum3) + 10*carryForward)):
+                    if (input1 + input2 + carry == (sum3 + 10*carryForward)):
                         # Populate these test solutions into branchSolutions
                         branchSolutions[input[0][index]] = input1
                         branchSolutions[input[1][index]] = input2
@@ -118,9 +118,9 @@ def solveProblem(input, sum):
     solution = solveNode(0, input, sum, solutions, 1, 0)
     if (solution != 'unsolvable'):
         print ("Solution Found!")
-        print(solution)
+        print (solution)
     else:
         print ("ERROR:  No solution found...")
-        exit(1)
+        exit (1)
 
 solveProblem(input, sum)
