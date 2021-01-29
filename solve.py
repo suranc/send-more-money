@@ -118,14 +118,23 @@ def solveProblem(input, sum):
     populateSolutions(input[0], solutions)
     populateSolutions(input[1], solutions)
     populateSolutions(sum, solutions)
+    solutionsCarry = solutions.copy()
 
-    # Solve for first digit.  Hard code carries since the leading solution digit means there's a carry and no carry forward.
-    solution = solveNode(0, input, sum, solutions, 1, 0)
+    # Solve for first digit without carry
+    solution = solveNode(0, input, sum, solutions, 0, 0)
     if (solution != 'unsolvable'):
         print ("Solution Found!")
         print (solution)
-    else:
-        print ("ERROR:  No solution found...")
-        exit (1)
+        exit(0)
+
+    # No match without carry, try to with carry
+    solution = solveNode(0, input, sum, solutionsCarry, 1, 0)
+    if (solution != 'unsolvable'):
+        print ("Solution Found!")
+        print (solution)
+        exit(0)
+
+    print ("ERROR:  No solution found...")
+    exit (1)
 
 solveProblem(input, sum)
